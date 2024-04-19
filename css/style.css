@@ -40,11 +40,44 @@ h1 {
 }
 
 .photographer_section article h2 {
+    margin: 0;
     color: #D3573C;
+    white-space: nowrap;
+    font-weight: 400;
     font-size: 36px;
 }
 
 .photographer_section article img {
+    /* object-fit: cover; */
+    height: 354px;
+    width: auto;
+    position: relative;
+    left: -77px;
+    top: -68px;
+}
+
+.photographer_section article .card-photographer {
     height: 200px;
     width: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.photographer_section article .location {
+    color: #901C1C;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.photographer_section article .taglineElement {
+    font-size: 10px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.photographer_section article .priceElement {
+    font-size: 9px;
+    font-weight: 400;
+    color: #757575;
 }
