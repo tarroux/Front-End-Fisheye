@@ -4,14 +4,13 @@ function photographerTemplate(data) {
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
     function getUserCardDOM() {
+        const linkPagePhotographer = document.createElement('a');
+        linkPagePhotographer.setAttribute("href", "photographer.html");
         const article = document.createElement('article');
-        // article.innerHTML = (
-        //     <img src={picture}/>
-        // )
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('card-photographer');
         const img = document.createElement('img');
-        img.setAttribute("src", picture)
+        img.setAttribute("src", picture);
         const h2 = document.createElement('h2');
         h2.textContent = name;
         const locationDiv = document.createElement('div');
@@ -23,13 +22,15 @@ function photographerTemplate(data) {
         const priceEl = document.createElement('p');
         priceEl.classList.add('priceElement');
         priceEl.textContent = price + "/jour";
-        imgContainer.appendChild(img);
+
+        linkPagePhotographer.appendChild(article);
         article.appendChild(imgContainer);
+        imgContainer.appendChild(img);
         article.appendChild(h2);
         article.appendChild(locationDiv);
         article.appendChild(taglineEl);
         article.appendChild(priceEl);
-        return (article);
+        return (linkPagePhotographer);
     }
     return { name, picture, getUserCardDOM }
 }
