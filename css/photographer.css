@@ -1,12 +1,60 @@
 #contact_modal {
     display: none;
 }
-
+/** HEADER **/
 .photograph-header {
     background-color: #FAFAFA;
+    border-radius: 5px;
+    width: 80%;
     height: 300px;
     margin: 0 100px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
 }
+
+.identity {
+    height: 200px;
+}
+
+.nameEL {
+    color: #D3573C;
+    font-weight: 400;
+    font-size: 64px;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.localisation {
+    font-size: 24px;
+    font-weight: 400;
+    color: #901C1C;
+    margin: 10px 10px 10px 0;
+}
+
+.tagline-header {
+    font-size: 18px;
+    font-weight: 400;
+    color: #525252;
+    margin: 10px 10px 10px 0;
+}
+
+.img-photographer {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.img-el {
+    width: auto;
+    height: 360px;
+    position: relative;
+    top: -75px;
+    left: -80px;
+}
+
+
 
 .contact_button {
     font-size: 20px;
@@ -32,6 +80,11 @@
     padding: 35px;
     margin: auto;
 }
+
+/** CONTENT **/
+
+
+/** MODAL **/
 
 .modal header {
     justify-content: space-between;
@@ -73,4 +126,17 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+
+/* Photograph page */
+.photograph-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.identity {
+    display: flex;
+    flex-direction: column;
 }

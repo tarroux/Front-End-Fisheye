@@ -85,15 +85,3 @@ h1 {
     font-weight: 400;
     color: #757575;
 }
-
-/* Photograph page */
-.photograph-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.identity {
-    display: flex;
-    flex-direction: column;
-}

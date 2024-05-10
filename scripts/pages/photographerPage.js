@@ -1,35 +1,36 @@
 // Mettre le code JavaScript lié à la page photographer.html
 
-async function getPhotographers() {
-    return fetch("/data/photographers.json")
-        .then((response) => response.json())
-        .then((json) => json)
-        .catch(err => console.log(err))
-}
+async function displayData(data) {
+    const mainEL = document.querySelector('#main');
+    // console.log(data);
 
-async function displayData(photographers) {
-    // const photographHeader = document.querySelector(".photograph-header");
-    // console.log(photographHeader);
-    const sectionEl = document.createElement('section');
-    sectionEl.classList.add('photograph');
-    //console.log(photograph);
+    // photographers.forEach((photographer) => {
+    //     const photographerContent = photographerPage(photographer);
+    //     //console.log(photographerContent);
 
-    photographers.forEach((photographer) => {
-        const photographerContent = photographerPage(photographer);
-        //console.log(photographerContent);
+    //     const userCardDOM = photographerContent.getUserPhotographerContent();
+    //     //console.log(userCardDOM);
+    //     // mainEL.appendChild(userCardDOM[0]);
+    //     mainEL.contains(userCardDOM);
 
-        const userCardDOM = photographerContent.getUserPhotographerContent();
-        console.log(userCardDOM);
-        photograph.appendChild(userCardDOM);
 
-    });
+    // });
 }
 
 async function init() {
-    // Récupère les datas des photographes
-    const { photographers } = await getPhotographers();
-    console.log(photographers);
-    displayData(photographers);
+    const url = window.location.search;
+    const urlParams = new URLSearchParams(url);
+    const id = urlParams.get('id');
+    console.log(id);
+    const data = await getMediaAndPhotographers();
+    console.log(data);
+    // await displayData(data);
 }
 
 init();
+
+
+// Suite :
+// Comment faire un filtre sur mes tableaux
+// filtrer tableau photographers par rapport à l'id
+// récupérer mes éléments de photographers et média

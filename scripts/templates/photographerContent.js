@@ -6,36 +6,69 @@ function photographerPage(data) {
 
     function getUserPhotographerContent() {
 
-        const headerPhotograph = document.getElementsByClassName('.photograph-header');
-        console.log(headerPhotograph);
-        const photographIdentity = document.createElement('div');
-        photographIdentity.classList.add('identity');
-        const h1Photograph = document.createElement('h1');
-        h1Photograph.textContent = name;
+        // Header
+        const headerPhotograph = document.querySelector('.photograph-header');
+        headerPhotograph.innerHTML = (
+            `<div class="identity">
+                <h1 class="nameEl">${name}</h1>
+                <p class="localisation">${city}, ${country}</p>
+                <p class="tagline-header">${tagline}</p>
+            </div>
+            <button class="contact_button header-button" onclick="displayModal()">Contactez-moi</button>
+            <div class="img-photographer">
+                <img src="${picture}" class="img-el"/>
+            </div>
+        `);
+        // const contentElPhotograph = document.createElement('section');
+        // contentElPhotograph.classList.add("section-content");
+        // contentElPhotograph.innerHTML = (
+        //     `<div>
+        //         <p>Trier par </p>
+        //     </div>
+        //     `);
+
+        //console.log(getUserPhotographerContent());
+
+
+
+
+        // const headerPhotograph = document.getElementsByClassName('photograph-header');
+        // //console.log(headerPhotograph);
+        // const photographIdentity = document.createElement('div');
+        // photographIdentity.classList.add('identity');
+        // const h1Photograph = document.createElement('h1');
+        // h1Photograph.classList.add('nameEL')
+        // h1Photograph.textContent = name;
         // const localisation = document.createElement('p');
         // localisation.classList.add('localisation');
         // localisation.textContent = city + ", " + country;
         // const taglineElHeader = document.createElement('p');
-        // taglineElHeader.classList.add('taglineElHeader');
+        // taglineElHeader.classList.add('tagline-header');
         // taglineElHeader.textContent = tagline;
-        //const contactButton = document.querySelector('header-button');
-        // console.log(contactButton);//= null
+        // const contactButton = document.querySelector('.header-button');
+        // //console.log(contactButton);//= null
         // const imgContainer = document.createElement('div');
         // imgContainer.classList.add('img-photographer');
         // const img = document.createElement('img');
+        // img.classList.add('img-el');
         // img.setAttribute("src", picture);
 
-        /** Affectation des éléments **/
-        headerPhotograph.appendChild(photographIdentity);
-        photographIdentity.appendChild(h1Photograph);
+        // // Content
+
+        // /** Affectation des éléments **/
+        // // Header
+        // headerPhotograph[0].appendChild(photographIdentity);
+        // photographIdentity.appendChild(h1Photograph);
         // photographIdentity.appendChild(localisation);
         // photographIdentity.appendChild(taglineElHeader);
-        //headerPhotograph.appendChild(contactButton);
-        // headerPhotograph.appendChild(imgContainer);
+        // headerPhotograph[0].appendChild(contactButton);
+        // headerPhotograph[0].appendChild(imgContainer);
         // imgContainer.appendChild(img);
+
+        // Content
 
         return (headerPhotograph);
     }
-    console.log(getUserPhotographerContent);
+    //console.log(getUserPhotographerContent);
     return { name, picture, getUserPhotographerContent }
 }
