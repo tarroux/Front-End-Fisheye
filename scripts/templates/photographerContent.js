@@ -1,6 +1,7 @@
 // Tout ce qui concerne le contenu de la page photographer
-function photographerPage(data) {
-    const { name, city, country, tagline, portrait } = data;
+function photographerPage(photographObj, mediaObj) {
+    const { name, city, country, tagline, portrait } = data.photographers;
+    console.log(photographObj, mediaObj);
 
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
