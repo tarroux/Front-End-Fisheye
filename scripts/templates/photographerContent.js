@@ -2,8 +2,8 @@
 function photographerPage(photographersIdentity) {
     // console.log(photographersIdentity);
     const { name, city, country, tagline, portrait } = photographersIdentity;
+    // console.log(photographersIdentity);
 
-    // const { title, image, likes, date, price } = photographerContentElement;
 
     // console.log(photographersIdentity);
     // console.log(photographerContentElement);
@@ -26,7 +26,10 @@ function photographerPage(photographersIdentity) {
             </div> 
         `);
 
-
+        // const sectionElement = document.querySelector('.section-element');
+        // sectionElement.innerHTML = (
+        //     `<p>Trier par</p>
+        // `);
         // sectionElementPicture.innerHTML = (`
 
         // `);
@@ -90,3 +93,64 @@ function photographerPage(photographersIdentity) {
     //console.log(getUserPhotographerContent);
     return { name, getUserPhotographerContent }// picture,
 }
+
+function mediaPhotographer(mediasElements, name) {
+    mediasElements.forEach((element) => console.log(element));
+    // console.log(name);
+    function getUserMediaContent() {
+        // Section
+        const sectionElementPicture = document.querySelector('.section-element');
+
+
+        // sectionElementPicture.classList.add('section-element');
+        sectionElementPicture.innerHTML = (
+            `<div class="filter">
+                <p>Trier par</p>
+                <ul>
+                    <li>Popularité</li>
+                    <li>Date</li>
+                    <li>Titre</li>
+                </ul>
+            </div>
+            <div id="card-container"></div>
+
+        `);
+        // console.log(mediasElements);
+        const firstName = name.split(' ');
+        mediasElements.forEach(element => {
+            const cardContainer = document.getElementById('card-container');
+            generateCard(cardContainer, element, firstName);
+        });
+
+        /*
+        Img 
+        -> Titre -> nbLike -> svgCoeur
+        */
+        // Parcourir média 
+        // Condition si image/si video
+
+        return (sectionElementPicture);
+    }
+    return { getUserMediaContent };
+}
+
+function generateCard(cardContainer, element, firstName) {
+    return (
+        cardContainer.innerHTML += (
+            `<div>${element.image ? (
+                `<img style="width:100;" class="" src="assets/photographers/${firstName[0]}/${element.image}" alt=""/>`
+            ) : (
+                `<video controls><source src="assets/photographers/${firstName[0]}/${element.video}" /></video>`
+            )}</div>
+        `)
+    );
+}
+//balise controle permet d'actionner la vidéo, voir ce qui existe au survol
+
+
+
+
+// opération ternaire 
+// ? true | : false | si on ne veut pas mettre de false remplace ? par &&
+// | -> opt +shift + L
+// Modification nom dossier img : Ellie Rose => Ellie

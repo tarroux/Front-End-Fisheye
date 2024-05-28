@@ -2,22 +2,36 @@
 
 async function displayData(data, id) {
     const mainEL = document.getElementById('main');
-    const sectionElementPicture = document.createElement('section');
-    data.photographers
-        .filter(photographer => photographer.id === id)
-        .forEach(photographer => {
-            const userHeaderEl = photographerPage(photographer)
-                .getUserPhotographerContent();
-            mainEL.appendChild(userHeaderEl);
-            return photographer;
-        })
-    data.medias
-        .filter(media => media.id === id)
-        .forEach(media => {
-            const userCardDOM = photographerPage(media)
-                .getUserPhotographerContent();
-            sectionElementPicture.appendChild(userCardDOM);
-        });
+    // const sectionElementPicture = document.createElement('section');
+    // sectionElementPicture.classList.add('section-element');
+
+    const photographUser = data.photographers.filter(photographer => photographer.id === id);
+    console.log(photographUser);
+
+    photographerPage(photographUser[0])
+        .getUserPhotographerContent();
+    // mainEL.appendChild(userHeaderEl[0]);
+    // console.log(userHeaderEl);
+
+    const mediasUser = data.medias.filter(media => media.photographerId === id);
+    // console.log(mediasUser);
+
+    mediaPhotographer(mediasUser, photographUser[0].name)
+        .getUserMediaContent();
+    // console.log(photographUser);
+
+    // mediasUser.forEach(media => {
+    //     const userCardDOM = mediaPhotographer(media, photographUser.name)
+    //         .getUserMediaContent();
+    //     // mainEL.appendChild(sectionElementPicture);
+    //     // mainEL.appendChild(userCardDOM[1]);
+    //     // console.log(media);
+    //     return media;
+    // });
+    // console.log(media);
+
+    // mainEL.appendChild(userHeaderEl);
+    // mainEL.appendChild(userCardDOM);
 }
 
 async function init() {
@@ -33,9 +47,3 @@ async function init() {
 init();
 
 
-// Suite :
-// Comment faire un filtre sur mes tableaux
-// filtrer tableau photographers par rapport à l'id
-// récupérer mes éléments de photographers et média
-
-//const queryString_url__id = window.location.search;
