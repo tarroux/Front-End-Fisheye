@@ -1,7 +1,12 @@
 // Tout ce qui concerne le contenu de la page photographer
-function photographerPage(photographObj, mediaObj) {
-    const { name, city, country, tagline, portrait } = data.photographers;
-    console.log(photographObj, mediaObj);
+function photographerPage(photographersIdentity) {
+    // console.log(photographersIdentity);
+    const { name, city, country, tagline, portrait } = photographersIdentity;
+
+    // const { title, image, likes, date, price } = photographerContentElement;
+
+    // console.log(photographersIdentity);
+    // console.log(photographerContentElement);
 
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
@@ -18,8 +23,20 @@ function photographerPage(photographObj, mediaObj) {
             <button class="contact_button header-button" onclick="displayModal()">Contactez-moi</button>
             <div class="img-photographer">
                 <img src="${picture}" class="img-el"/>
-            </div>
+            </div> 
         `);
+
+
+        // sectionElementPicture.innerHTML = (`
+
+        // `);
+        // Body (content)
+
+        // const photographElement = document.createElement('section');
+        // photographElement.classList.add("section-content");
+
+        // Section container : content elements photograph
+
         // const contentElPhotograph = document.createElement('section');
         // contentElPhotograph.classList.add("section-content");
         // contentElPhotograph.innerHTML = (
@@ -71,5 +88,5 @@ function photographerPage(photographObj, mediaObj) {
         return (headerPhotograph);
     }
     //console.log(getUserPhotographerContent);
-    return { name, picture, getUserPhotographerContent }
+    return { name, getUserPhotographerContent }// picture,
 }
