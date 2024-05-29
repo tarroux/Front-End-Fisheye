@@ -142,7 +142,7 @@ form input {
 }
 
 .section-element {
-    width: 90%;
+    width: 100%;
     margin: 0 100px;
     margin-top: 30px;
 }
@@ -162,6 +162,7 @@ form input {
 .filter ul {
     width: 170px;
     height: 170px;
+    padding: 0;
     list-style-type: none;
     /* list-style-position: outside; */
     background-color: #901C1C;
@@ -183,8 +184,61 @@ ul span {
     border-color: white;
 }
 
-.section-element img,
-.section-element video {
-    width: 100px;
+.section-element {
+    width: 90%;
     height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-elements {
+    width: 350px;
+    height: 351px;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-elements img,
+.card-elements video {
+    width: 350px;
+    height: 300px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.card-title-like {
+    width: 350px;
+    height: 50px;
+    padding: 5px;
+    display: flex;
+}
+
+.card-title {
+    width: 292px;
+    height: 31px;
+    margin: 5px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #901C1C;
+    overflow: hidden;
+}
+
+.like-all-element {
+    width: 51px;
+    height: 31px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.like-all-element img {
+    width: 24px;
+    height: 24px;
 }

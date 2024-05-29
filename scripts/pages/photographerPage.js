@@ -6,7 +6,7 @@ async function displayData(data, id) {
     // sectionElementPicture.classList.add('section-element');
 
     const photographUser = data.photographers.filter(photographer => photographer.id === id);
-    console.log(photographUser);
+    // console.log(photographUser);
 
     photographerPage(photographUser[0])
         .getUserPhotographerContent();

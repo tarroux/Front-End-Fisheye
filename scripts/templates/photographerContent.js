@@ -95,7 +95,7 @@ function photographerPage(photographersIdentity) {
 }
 
 function mediaPhotographer(mediasElements, name) {
-    mediasElements.forEach((element) => console.log(element));
+    // mediasElements.forEach((element) => console.log(element));
     // console.log(name);
     function getUserMediaContent() {
         // Section
@@ -117,6 +117,7 @@ function mediaPhotographer(mediasElements, name) {
         `);
         // console.log(mediasElements);
         const firstName = name.split(' ');
+        // const likeImg = "assets/icons/favorite.png";
         mediasElements.forEach(element => {
             const cardContainer = document.getElementById('card-container');
             generateCard(cardContainer, element, firstName);
@@ -134,14 +135,23 @@ function mediaPhotographer(mediasElements, name) {
     return { getUserMediaContent };
 }
 
-function generateCard(cardContainer, element, firstName) {
+function generateCard(cardContainer, element, firstName, title, likes) {
     return (
         cardContainer.innerHTML += (
-            `<div>${element.image ? (
-                `<img style="width:100;" class="" src="assets/photographers/${firstName[0]}/${element.image}" alt=""/>`
+            `<div class="card-elements">${element.image ? (
+                `<img class="" src="assets/photographers/${firstName[0]}/${element.image}" alt=""/>`
             ) : (
                 `<video controls><source src="assets/photographers/${firstName[0]}/${element.video}" /></video>`
-            )}</div>
+            )}
+                <div classe="card-title-like">
+                    <h2 class="card-title">${element.title}</h2>
+                    <div class="like-all-element">
+                        <p>${element.likes}</p>
+                        <img src="assets/icons/favorite.png" alt="favorite"/>
+                    </div>
+                </div>
+            </div>
+            
         `)
     );
 }
