@@ -148,17 +148,20 @@ form input {
 }
 
 .filter {
-    width: 30%;
+    width: 300px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.filter p {
-    width: 74px;
-    margin-right: 10px;
+.section-element p {
+    width: 80px;
+    height: 23px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
+/* MENU */
 .filter ul {
     width: 170px;
     height: 170px;
@@ -173,15 +176,49 @@ form input {
     width: 74px;
     height: 23px;
     padding: 15px;
+    padding-top: 18px;
     color: white;
     font-size: 18px;
     font-weight: 700;
 }
 
-ul span {
+.menu-parent {
+    position: relative;
+}
+
+.parent-line2 {
+    position: relative;
+}
+
+.open,
+.close {
+    position: absolute;
+    top: 14px;
+    left: 125px;
+}
+
+.open {
+    display: none;
+}
+
+/* Ligne menu */
+
+.line1 {
     width: 150px;
     height: 1px;
-    border-color: white;
+    background-color: white;
+    position: absolute;
+    top: 60px;
+    right: -56px;
+}
+
+.line2 {
+    width: 150px;
+    height: 1px;
+    background-color: white;
+    position: absolute;
+    top: 60px;
+    right: -56px;
 }
 
 .section-element {
@@ -202,24 +239,25 @@ ul span {
     margin: 15px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .card-elements img,
 .card-elements video {
-    width: 350px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     border-radius: 5px;
     object-fit: cover;
 }
 
-.card-title-like {
+.card-elements div {
     width: 350px;
     height: 50px;
     padding: 5px;
     display: flex;
 }
 
-.card-title {
+.card-elements h2 {
     width: 292px;
     height: 31px;
     margin: 5px;
@@ -229,7 +267,7 @@ ul span {
     overflow: hidden;
 }
 
-.like-all-element {
+.card-elements div div {
     width: 51px;
     height: 31px;
     display: flex;

@@ -101,27 +101,84 @@ function mediaPhotographer(mediasElements, name) {
         // Section
         const sectionElementPicture = document.querySelector('.section-element');
 
-
-        // sectionElementPicture.classList.add('section-element');
-        sectionElementPicture.innerHTML = (
-            `<div class="filter">
-                <p>Trier par</p>
-                <ul>
-                    <li>Popularité</li>
-                    <li>Date</li>
-                    <li>Titre</li>
-                </ul>
-            </div>
-            <div id="card-container"></div>
-
-        `);
-        // console.log(mediasElements);
-        const firstName = name.split(' ');
-        // const likeImg = "assets/icons/favorite.png";
-        mediasElements.forEach(element => {
+        if (sectionElementPicture) {
+            // sectionElementPicture.classList.add('section-element');
+            sectionElementPicture.innerHTML = (
+                `<div class="filter">
+                    <p>Trier par</p>
+                    <ul id="sort-options">
+                        <li class="menu-parent" data-sort="popularity">
+                        Popularité 
+                            <img class="open" src="assets/icons/flecheBas.png"/>
+                            <img class="close" src="assets/icons/flecheHaut.png"/>
+                            <div class="line1"></div>
+                        </li>
+                        <li class="parent-line2" data-sort="date">
+                        Date
+                            <div class="line2"></div>
+                        </li>
+                        <li data-sort="title>Titre</li>
+                    </ul>
+                </div>
+                <div id="card-container"></div>
+            `);
+            const firstName = name.split(' ')[0];
             const cardContainer = document.getElementById('card-container');
-            generateCard(cardContainer, element, firstName);
-        });
+            // console.log(cardContainer);
+
+            // if (!cardContainer) {
+            //     console.error('card-container not found');
+            //     return;
+            // }
+
+            function sortAndRender(sortBy) {
+                let sortedElements = [...mediasElements];
+
+                switch (sortBy) {
+                    case 'populatity':
+                        sortedElements.sort((a, b) => b.likes - a.likes);
+                        break;
+                    case 'date':
+                        sortedElements.sort((a, b) => new Date(b.date) - new Date(a.date));
+                        break;
+                    case 'title':
+                        sortedElements.sort((a, b) => a.title.localeCompare(b.title));
+                        break;
+                    default:
+                        console.error('error sort option :', sortBy);
+                        return;
+                }
+
+                cardContainer.innerHTML = ''; // Clear
+                sortedElements.forEach((element) => generateCard(cardContainer, element, firstName));
+                console.log(cardContainer);
+
+            }
+            // par defaut générer par popularité
+            sortAndRender('popularity');
+
+            const sortOptions = document.getElementById('sort-options');
+            sortOptions.addEventListener('click', (event) => {
+                const sortBy = event.target.getAttribute('data-sort');
+                if (sortBy) {
+                    sortAndRender(sortBy);
+                }
+            });
+        }
+
+        /*
+        Ajouter les img pour le menu ouvert ou fermé :
+        <img src="assets/icons/flecheBas.png" alt="fleche fermeture">
+        <img src="assets/icons/flecheHaut.png" alt="fleche ouverture">
+        */
+
+        // console.log(mediasElements);
+
+        // const likeImg = "assets/icons/favorite.png";
+        // mediasElements.forEach(element => {
+        //     const cardContainer = document.getElementById('card-container');
+        //     generateCard(cardContainer, element, firstName);
+        // });
 
         /*
         Img 
@@ -135,7 +192,7 @@ function mediaPhotographer(mediasElements, name) {
     return { getUserMediaContent };
 }
 
-function generateCard(cardContainer, element, firstName, title, likes) {
+function generateCard(cardContainer, element, firstName) {
     return (
         cardContainer.innerHTML += (
             `<div class="card-elements">${element.image ? (
@@ -143,19 +200,19 @@ function generateCard(cardContainer, element, firstName, title, likes) {
             ) : (
                 `<video controls><source src="assets/photographers/${firstName[0]}/${element.video}" /></video>`
             )}
-                <div classe="card-title-like">
-                    <h2 class="card-title">${element.title}</h2>
+                <div>
+                    <h2>${element.title}</h2>
                     <div class="like-all-element">
                         <p>${element.likes}</p>
                         <img src="assets/icons/favorite.png" alt="favorite"/>
                     </div>
                 </div>
-            </div>
-            
+            </div> 
         `)
     );
+
 }
-//balise controle permet d'actionner la vidéo, voir ce qui existe au survol
+
 
 
 
