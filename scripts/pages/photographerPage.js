@@ -5,10 +5,10 @@ async function displayData(data, id) {
     // const sectionElementPicture = document.createElement('section');
     // sectionElementPicture.classList.add('section-element');
 
-    const photographUser = data.photographers.filter(photographer => photographer.id === id);
+    const photographUser = data.photographers.find(photographer => photographer.id === id);//mis find à la place de filter
     // console.log(photographUser);
 
-    photographerPage(photographUser[0])
+    photographerPage(photographUser)
         .getUserPhotographerContent();
     // mainEL.appendChild(userHeaderEl[0]);
     // console.log(userHeaderEl);
@@ -16,7 +16,7 @@ async function displayData(data, id) {
     const mediasUser = data.medias.filter(media => media.photographerId === id);
     // console.log(mediasUser);
 
-    mediaPhotographer(mediasUser, photographUser[0].name)
+    mediaPhotographer(mediasUser, photographUser.name)
         .getUserMediaContent();
     // console.log(photographUser);
 
@@ -41,7 +41,7 @@ async function init() {
     // console.log(id);
     const data = await getMediaAndPhotographers();
     // console.log(data);
-    await displayData(data, id);
+    displayData(data, id);
 }
 
 init();
