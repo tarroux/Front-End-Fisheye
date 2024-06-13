@@ -32,6 +32,29 @@
 				</form>
 			</div>
 		</div>
+    <div id="lightbox" class="lightbox">
+      <span class="closeLightbox">
+          <img src="assets/icons/close-24px 1.png" alt="close"/>
+      </span>
+      <div class="lightbox-content">
+        <div class="media-container">
+          <img id="lightbox-img" class="lightbox-img" src="" alt=""/>
+          <video id="lightbox-video" class="lightbox-video" controls>
+              <source id="lightbox-video-source" src="" />
+          </video>
+        </div>
+        <div class="lightbox-title">
+          <p id="lightbox-title"></p>
+        </div>
+      </div>
+      <div class="lightbox-nav left">
+          <img src="assets/icons/expand_more-24px 4.png" alt="left"/>
+      </div>
+      <div class="lightbox-nav right">
+          <img src="assets/icons/expand_more-24px 5.png" alt="right"/>
+      </div>
+    </div>
+  
     <script src="/scripts/services/getData.js"></script>
     <script src="/scripts/pages/photographerPage.js"></script>
     <script src="/scripts/templates/photographerContent.js"></script>

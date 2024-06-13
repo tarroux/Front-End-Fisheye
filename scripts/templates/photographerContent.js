@@ -41,6 +41,7 @@ const filterItems = [
 
 let isOpen = false;
 let currentName;
+let filterSelected = 1;
 
 function setIsOpen(medias) {
     isOpen = !isOpen;
@@ -53,22 +54,24 @@ function updateFilterButton(medias) {
 
     if (filterBtn && dropdownContent) {
         filterBtn.innerHTML = `
-            ${filterItems.find((item) => item.id === filterSelected).title}
+            <p>${filterItems.find((item) => item.id === filterSelected).title}</p>
             <img src="assets/icons/${isOpen ? "flecheHaut" : "flecheBas"}.png"/>
         `;
 
         if (isOpen) {
             dropdownContent.style.display = 'block';
-            dropdownContent.innerHTML = filterItems.map(item => `
-                <div class="dropdown-item" data-sort="${item.filter}">${item.title}</div>
+            dropdownContent.innerHTML = filterItems.map((item, index) => `
+                <div class="dropdown-item" data-sort="${item.filter}" data-id="${item.id}">${item.title}</div>
+                ${index < filterItems.length - 1 ? '<hr class="separate-line">' : ''}
             `).join('');
 
             document.querySelectorAll('.dropdown-item').forEach(item => {
                 item.addEventListener('click', (event) => {
                     const sortById = event.target.getAttribute('data-sort');
+                    let id = parseInt(event.target.getAttribute('data-id'));
                     if (sortById) {
                         // console.log(sortById);
-                        // filterSelected = sortById;
+                        filterSelected = id;
                         sortAndRender(medias, currentName, sortById);
                         // sortAndRender(filterItems.find(f => f.id === sortById).title.toLowerCase());
                         isOpen = false;
@@ -81,7 +84,7 @@ function updateFilterButton(medias) {
         }
     }
 }
-let filterSelected = 1;
+
 
 function sortAndRender(medias, name, sortBy) {
     const firstName = name.split(' ')[0];
@@ -98,14 +101,14 @@ function sortAndRender(medias, name, sortBy) {
                 sortedElements.sort((a, b) => new Date(b.date) - new Date(a.date));
                 break;
             case 'title':
-                sortedElements.sort((a, b) => a.title.localeCompare(b.title));
+                sortedElements.sort((a, b) => a.title > b.title); //localeCompare
                 break;
             default:
                 console.error('Erreur option de tri :', sortBy);
         }
 
         cardContainer.innerHTML = ''; // Clear
-        sortedElements.forEach((element) => generateCard(cardContainer, element, firstName));
+        sortedElements.forEach((element, index) => generateCard(cardContainer, element, firstName, index));// ajout index
     }
 }
 
@@ -130,10 +133,11 @@ function mediaPhotographer(medias, name) {
                 </div>
                 <div id="card-container"></div>
             `);
+            // console.log(filterItems, "ici");
             // sectionElementPicture.innerHTML += (``);
             const filterBtn = document.getElementById('filter-btn');
             filterBtn.addEventListener('click', () => setIsOpen(medias));
-            // console.log(isOpen);
+            // console.log(filterBtn);
 
             const firstName = name.split(' ')[0];
             const cardContainer = document.getElementById('card-container');
@@ -145,65 +149,9 @@ function mediaPhotographer(medias, name) {
             //     return;
             // }
 
-
-            // function sortAndRender(sortBy) {
-            //     let sortedElements = [...medias];
-
-            //     switch (sortBy) {
-            //         case 'popularity':
-            //             sortedElements.sort((a, b) => b.likes - a.likes);
-            //             break;
-            //         case 'date':
-            //             sortedElements.sort((a, b) => new Date(b.date) - new Date(a.date));
-            //             break;
-            //         case 'title':
-            //             sortedElements.sort((a, b) => a.title.localeCompare(b.title));
-            //             break;
-            //         default:
-            //             console.error('error sort option :', sortBy);
-            //         // return;   
-            //     }
-
-            //     cardContainer.innerHTML = ''; // Clear
-            //     sortedElements.forEach((element) => generateCard(cardContainer, element, firstName));
-            //     console.log(cardContainer);
-
-            // }
             // par defaut générer par popularité
             sortAndRender(medias, name, 'popularity');
 
-            const dropdownToggle = document.querySelector('.menu-parent');
-            const dropdownContent = document.querySelector('.dropdown-content');
-            const openFilter = document.getElementById('open');
-            const closeFilter = document.getElementById('close');
-
-            dropdownToggle.addEventListener('click', () => {
-                const isOpen = dropdownContent.style.display === 'block';
-                dropdownContent.style.display = isOpen ? 'none' : 'block';
-                openFilter.style.display = isOpen ? 'block' : 'none';
-                closeFilter.style.display = isOpen ? 'none' : 'block';
-
-            });
-
-            document.querySelectorAll('.dropdown-item').forEach(item => {
-                item.addEventListener('click', function () {
-                    const sortBy = item.getAttribute('data-sort');
-                    if (sortBy) {
-                        sortAndRender(sortBy);
-                        dropdownContent.style.display = 'none';
-                        openIcon.style.display = 'block';
-                        closeIcon.style.display = 'none';
-                    }
-                });
-            });
-
-            // const sortOptions = document.getElementById('sort-options');
-            // sortOptions.addEventListener('click', (event) => {
-            //     const sortBy = event.target.getAttribute('data-sort');
-            //     if (sortBy) {
-            //         sortAndRender(sortBy);
-            //     }
-            // });
         }
 
 
@@ -219,28 +167,101 @@ function mediaPhotographer(medias, name) {
     return { getUserMediaContent };
 }
 
-function generateCard(cardContainer, element, firstName) {
-    return (
-        cardContainer.innerHTML += (
-            `<div class="card-elements">${element.image ? (
-                `<img class="" src="assets/photographers/${firstName}/${element.image}" alt=""/>`
-            ) : (
-                `<video controls><source src="assets/photographers/${firstName}/${element.video}" /></video>`
-            )}
+function generateCard(cardContainer, element, firstName, index) {
+    //Suppression du return
+    cardContainer.innerHTML += (
+        `<div class="card-elements">${element.image ? (
+            `<img class="media-element" src="assets/photographers/${firstName}/${element.image}" alt=""/>`
+        ) : (
+            `<video class="media-element vv" controls><source src="assets/photographers/${firstName}/${element.video}" /></video>`
+        )}
                 <div>
                     <h2>${element.title}</h2>
                     <div class="like-all-element">
-                        <p>${element.likes}</p>
-                        <img src="assets/icons/favorite.png" alt="favorite"/>
+                        <p id="like-count-${index}">${element.likes}</p>
+                        <img id="favorite-${index}" class="favorite-icon" src="assets/icons/favorite.png" alt="favorite"/>
                     </div>
                 </div>
             </div> 
-        `)
-    );
+        `);
+    setTimeout(() => {
+        // document.getElementById(`favorite-${index}`).addEventListener('click', () => {
+        //     element.likes += 1; // Met à jour le nombre de likes dans les données
+        //     document.getElementById(`like-count-${index}`).textContent = element.likes; // Met à jour le DOM
+        // });
+        document.getElementById(`favorite-${index}`).addEventListener('click', () => {
+            if (element.liked) {
+                element.likes -= 1;
+                element.liked = false;
+            } else {
+                element.likes += 1;
+                element.liked = true;
+            }
+            document.getElementById(`like-count-${index}`).textContent = element.likes;
+        });
 
+        document.querySelectorAll('.media-element').forEach((media, idx) => {
+            media.addEventListener('click', () => {
+                openLightbox(media, idx, element.title);
+            });
+        });
+
+        document.querySelectorAll('.vv').forEach((media) => {
+            media.addEventListener('play', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        // Mise à jour des éléments média pour la navigation
+        mediaElements = document.querySelectorAll('.media-element');
+    }, 0);
 }
 
+function openLightbox(media, index, title) {
+    currentMediaIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxVideo = document.getElementById('lightbox-video');
+    const lightboxVideoSource = document.getElementById('lightbox-video-source');
+    const lightboxTitle = document.getElementById('lightbox-title');
 
+    lightbox.style.display = 'block';
+
+    if (media.tagName === 'IMG') {
+        lightboxImg.style.display = 'block';
+        lightboxVideo.style.display = 'none';
+        lightboxImg.src = media.src;
+    } else if (media.tagName === 'VIDEO') {
+        lightboxImg.style.display = 'none';
+        lightboxVideo.style.display = 'block';
+        lightboxVideoSource.src = media.querySelector('source').src;
+        lightboxVideo.load();
+    }
+
+    lightboxTitle.textContent = title;
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+
+function showNextMedia() {
+    currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
+    const nextElement = mediaElements[currentMediaIndex];
+    const nextTitle = nextElement.nextElementSibling.querySelector('h2').textContent;
+    openLightbox(nextElement, currentMediaIndex, nextTitle);
+}
+
+function showPrevMedia() {
+    currentMediaIndex = (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
+    const prevElement = mediaElements[currentMediaIndex];
+    const prevTitle = prevElement.nextElementSibling.querySelector('h2').textContent;
+    openLightbox(prevElement, currentMediaIndex, prevTitle);
+}
+
+document.querySelector('.lightbox .closeLightbox').addEventListener('click', closeLightbox);
+document.querySelector('.lightbox-nav.left').addEventListener('click', showPrevMedia);
+document.querySelector('.lightbox-nav.right').addEventListener('click', showNextMedia);
 
 
 

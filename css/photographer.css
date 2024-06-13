@@ -143,7 +143,7 @@ form input {
 
 .section-element {
     width: 100%;
-    margin: 0 100px;
+    margin: 0 90px;
     margin-top: 30px;
 }
 
@@ -163,35 +163,43 @@ form input {
 
 /* MENU */
 .dropdown-content {
-    background-color: #901C1C;
-}
-
-
-.filter ul {
     width: 170px;
-    height: 61px;
-    padding: 0;
-    list-style-type: none;
-    /* list-style-position: outside; */
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #901C1C;
     border-radius: 5px;
-}
-
-.filter li {
-    padding: 1px;
-    height: 55px;
-}
-
-.filter ul li p {
-    width: 74px;
-    height: 23px;
-    /* padding: 15px; */
-    /* padding-top: 18px; */
-    padding-left: 15px;
     color: white;
     font-size: 18px;
     font-weight: 700;
 }
+
+.filter button {
+    width: 170px;
+    height: 69px;
+    padding-top: 10px;
+    background-color: #901C1C;
+    border: 0;
+    border-radius: 5px;
+    padding-left: 8px;
+    padding-bottom: 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.filter button p { 
+    width: 60%;
+}
+
+.separate-line {
+    width: 140px;
+    height: 1px;
+    background-color: white;
+}
+
 
 .menu-parent {
     position: relative;
@@ -206,7 +214,7 @@ form input {
 .line1 {
     width: 150px;
     height: 1px;
-    background-color: white;
+    background-color: green;
     position: absolute;
     top: 48px;
     right: 7px;
@@ -257,7 +265,7 @@ form input {
 }
 
 .section-element {
-    width: 90%;
+    width: 85%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -266,6 +274,8 @@ form input {
 #card-container {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .card-elements {
@@ -314,4 +324,89 @@ form input {
 .like-all-element img {
     width: 24px;
     height: 24px;
+}
+
+
+/* LIGHTBOX */
+
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: white;
+}
+
+.lightbox-content {
+    position: relative;
+    margin: auto;
+    padding: 10px;
+    width: 80%;
+    max-width: 700px;
+    max-height: 900px;
+    display: flex;
+}
+
+.media-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 100%; */
+    /* max-height: 80vh; */
+    border-radius: 5px;
+    padding-bottom: 20px;
+}
+
+.lightbox-img, .lightbox-video {
+    width: 100%;
+    height: 100%;
+}
+
+.lightbox-img {
+    border-radius: 5px;
+}
+
+.lightbox-title {
+    width: 292px;
+    height: 31px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #901C1C;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.closeLightbox {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    cursor: pointer;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.lightbox-nav.left {
+    left: 0;
+}
+
+.lightbox-nav.right {
+    right: 0;
 }
