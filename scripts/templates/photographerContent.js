@@ -55,13 +55,16 @@ function updateFilterButton(medias) {
     if (filterBtn && dropdownContent) {
         filterBtn.innerHTML = `
             <p>${filterItems.find((item) => item.id === filterSelected).title}</p>
-            <img src="assets/icons/${isOpen ? "flecheHaut" : "flecheBas"}.png"/>
+            <img src="assets/icons/flecheBas.png"/>
         `;
-
+        // modification, quand dropdown est ouvert mettre la fleche et supprimer condition ternaire : <img src="assets/icons/${isOpen ? "flecheHaut" : "flecheBas"}.png"/>
         if (isOpen) {
             dropdownContent.style.display = 'block';
             dropdownContent.innerHTML = filterItems.map((item, index) => `
-                <div class="dropdown-item" data-sort="${item.filter}" data-id="${item.id}">${item.title}</div>
+                <div class="dropdown-item" data-sort="${item.filter}" data-id="${item.id}">${item.title}
+                ${index < filterItems.length - 2 ? `<img src="assets/icons/flecheHaut.png"/>` : ''}
+                </div>
+                
                 ${index < filterItems.length - 1 ? '<hr class="separate-line">' : ''}
             `).join('');
 
@@ -173,7 +176,7 @@ function generateCard(cardContainer, element, firstName, index) {
         `<div class="card-elements">${element.image ? (
             `<img class="media-element" src="assets/photographers/${firstName}/${element.image}" alt=""/>`
         ) : (
-            `<video class="media-element vv" controls><source src="assets/photographers/${firstName}/${element.video}" /></video>`
+            `<video class="media-element video"><source src="assets/photographers/${firstName}/${element.video}" /></video>`
         )}
                 <div>
                     <h2>${element.title}</h2>
@@ -205,12 +208,14 @@ function generateCard(cardContainer, element, firstName, index) {
                 openLightbox(media, idx, element.title);
             });
         });
-
-        document.querySelectorAll('.vv').forEach((media) => {
-            media.addEventListener('play', (e) => {
-                e.preventDefault();
-            });
-        });
+        // Empécher le lancement de la vidéo sur la page d'accueil et ouvrir la lightbox 
+        // document.querySelectorAll('.video').forEach((media) => {
+        //     media.addEventListener('play', (e) => {
+        //         onplay = (e) => {
+        //             e.preventDefault();
+        //         }
+        //     });
+        // });
 
         // Mise à jour des éléments média pour la navigation
         mediaElements = document.querySelectorAll('.media-element');
