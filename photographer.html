@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <img src="assets/images/logo.png" class="logo" />
+      <a href="index.html"><img src="assets/images/logo.png" class="logo" /></a>
     </header>
     <main id="main">
       <div class="photograph-header">
@@ -17,19 +17,18 @@
       </div>
       <section class="section-element"></section>
     </main>
-    <div id="contact_modal">
+    <div id="contact-modal">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <div class="header-modal">
+            <h2>Contactez-moi</h2>
+            <img src="assets/icons/close.svg" id="close-modal" onclick="closeModal()"/>
+          </div>
+          <div class="header-contact-name">
+            <h3 class="name-photograph"></h3>
+          </div>
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
+				<form id="form"></form>
 			</div>
 		</div>
     <div id="lightbox" class="lightbox">

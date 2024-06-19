@@ -69,10 +69,16 @@
     cursor: pointer;
 }
 
+.contact_button:hover {
+    background-color: #DB8876;
+}
+
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
     width: 50%;
+    max-width: 650px;
+    min-width: 510px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -86,24 +92,66 @@
 
 /** MODAL **/
 
+.modal {
+    position: absolute;
+    top: 10%;
+    left: 20%;
+}
+
+.contact-modal {
+    display: none;
+}
+
+.close-modal,
+.contact_button {
+    cursor: pointer;
+}
+
 .modal header {
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 165px;
+}
+
+.header-modal {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
 
 .modal header img {
+    width: 50px;
+    height: 50px;
+    margin-top: 18px;
     cursor: pointer;
 }
 
 .modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
+    margin: 0;
+    font-size: 60px;
+    font-weight: 400;
     text-align: center;
 }
 
-form {
-    display: flex;
+.header-contact-name {
     width: 100%;
+    height: 85px;
+}
+
+.modal header h3 {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 60px;
+    font-weight: 400;
+}
+
+form {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -126,6 +174,11 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+form textarea {
+    width: 100%;
+    height: 120px;
 }
 
 
@@ -278,6 +331,7 @@ form input {
 #card-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     width: 100%;
     margin-top: 20px;
 }
@@ -293,8 +347,9 @@ form input {
 
 .card-elements img,
 .card-elements video {
-    width: 100% auto;
+    width: 100%;
     height: 100%;
+    max-height: 298px;
     border-radius: 5px;
     object-fit: cover;
 }
@@ -330,11 +385,66 @@ form input {
     height: 24px;
 }
 
-/* .like-all-element {
-    width: 50px;
-    padding-right: 10px;
-} */
+/* total like */
 
+.infos {
+    width: 300px;
+    height: 60px;
+    background-color: #DB8876;
+    border-radius: 5px 5px 0 5px;
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.infos .total-like {
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.likes-and-img {
+    width: 110px;
+    /* padding-left: 10px; */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.likes-and-img img {
+    width: 21px;
+    height: 24px;
+}
+
+.likes-and-img p {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.likes-and-img p,
+.likes-and-img img {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.infos .tarif-jour {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-top: 4px;
+    width: 120px;
+    height: 50px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #000000;
+}
 
 /* LIGHTBOX */
 

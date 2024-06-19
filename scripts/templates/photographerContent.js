@@ -1,12 +1,6 @@
 // Tout ce qui concerne le contenu de la page photographer
 function photographerPage(photographersIdentity) {
-    // console.log(photographersIdentity);
-    const { name, city, country, tagline, portrait } = photographersIdentity;
-    // console.log(photographersIdentity);
-
-
-    // console.log(photographersIdentity);
-    // console.log(photographerContentElement);
+    const { name, city, country, tagline, portrait, price } = photographersIdentity;
 
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
@@ -26,6 +20,10 @@ function photographerPage(photographersIdentity) {
             </div> 
         `);
 
+        const priceElement = document.querySelector('.tarif-jour');
+        if (priceElement) {
+            priceElement.textContent = `${price}€/jour`;
+        }
 
         return (headerPhotograph);
     }
@@ -111,11 +109,13 @@ function sortAndRender(medias, name, sortBy) {
         }
 
         cardContainer.innerHTML = ''; // Clear
-        sortedElements.forEach((element, index) => generateCard(cardContainer, element, firstName, index));// ajout index
+        sortedElements.forEach((element, index) => generateCard(cardContainer, element, firstName, index));
+        const totalLikes = calculateTotalLikes(sortedElements);
+        updateTotalLikes();
     }
 }
 
-function mediaPhotographer(medias, name) {
+function mediaPhotographer(medias, name, price) {
     currentName = name;
     // mediasElements.forEach((element) => console.log(element));
     // console.log(name);
@@ -135,9 +135,15 @@ function mediaPhotographer(medias, name) {
                     <div id="dropdown-content" class="dropdown-content"></div>
                 </div>
                 <div id="card-container"></div>
+                <div class="infos">
+                    <div class="likes-and-img">
+                        <p class="total-like"></p>
+                        <img src="assets/icons/favorite-24px 1.png"/>
+                    </div>
+                    <p class="tarif-jour"></p>
+                </div>
             `);
-            // console.log(filterItems, "ici");
-            // sectionElementPicture.innerHTML += (``);
+
             const filterBtn = document.getElementById('filter-btn');
             filterBtn.addEventListener('click', () => setIsOpen(medias));
             // console.log(filterBtn);
@@ -145,29 +151,21 @@ function mediaPhotographer(medias, name) {
             const firstName = name.split(' ')[0];
             const cardContainer = document.getElementById('card-container');
 
-            // console.log(cardContainer);
-
-            // if (!cardContainer) {
-            //     console.error('card-container not found');
-            //     return;
-            // }
-
             // par defaut générer par popularité
             sortAndRender(medias, name, 'popularity');
-
+            updatePriceElement(price);
         }
-
-
-        /*
-        Img 
-        -> Titre -> nbLike -> svgCoeur
-        */
-        // Parcourir média 
-        // Condition si image/si video
 
         return (sectionElementPicture);
     }
     return { getUserMediaContent };
+}
+
+function updatePriceElement(price) {
+    const priceElement = document.querySelector('.tarif-jour');
+    if (priceElement) {
+        priceElement.textContent = `${price}€/jour`;
+    }
 }
 
 function generateCard(cardContainer, element, firstName, index) {
@@ -187,20 +185,12 @@ function generateCard(cardContainer, element, firstName, index) {
                 </div>
             </div> 
         `);
-    setTimeout(() => {
-        // document.getElementById(`favorite-${index}`).addEventListener('click', () => {
-        //     element.likes += 1; // Met à jour le nombre de likes dans les données
-        //     document.getElementById(`like-count-${index}`).textContent = element.likes; // Met à jour le DOM
-        // });
+    Promise.resolve().then(() => {
         document.getElementById(`favorite-${index}`).addEventListener('click', () => {
-            if (element.liked) {
-                element.likes -= 1;
-                element.liked = false;
-            } else {
-                element.likes += 1;
-                element.liked = true;
-            }
+            element.likes += element.liked ? -1 : 1;
+            element.liked = !element.liked;
             document.getElementById(`like-count-${index}`).textContent = element.likes;
+            updateTotalLikes();
         });
 
         document.querySelectorAll('.media-element').forEach((media, idx) => {
@@ -208,20 +198,29 @@ function generateCard(cardContainer, element, firstName, index) {
                 openLightbox(media, idx, element.title);
             });
         });
-        // Empécher le lancement de la vidéo sur la page d'accueil et ouvrir la lightbox 
-        // document.querySelectorAll('.video').forEach((media) => {
-        //     media.addEventListener('play', (e) => {
-        //         onplay = (e) => {
-        //             e.preventDefault();
-        //         }
-        //     });
-        // });
 
         // Mise à jour des éléments média pour la navigation
         mediaElements = document.querySelectorAll('.media-element');
-    }, 0);
+    });
 }
 
+function calculateTotalLikes(medias) {
+    return medias.reduce((total, media) => total + media.likes, 0);
+}
+
+function updateTotalLikes() {
+    const allMediaLikes = document.querySelectorAll('.like-all-element > p');
+    const totalLikes = Array.from(allMediaLikes).reduce((total, likeElement) => {
+        return total + parseInt(likeElement.textContent);
+    }, 0);
+
+    const totalLikesElement = document.querySelector('.total-like');
+    if (totalLikesElement) {
+        totalLikesElement.textContent = totalLikes;
+    }
+}
+
+/* LIGHTBOX */
 function openLightbox(media, index, title) {
     currentMediaIndex = index;
     const lightbox = document.getElementById('lightbox');
@@ -268,9 +267,3 @@ document.querySelector('.lightbox .closeLightbox').addEventListener('click', clo
 document.querySelector('.lightbox-nav.left').addEventListener('click', showPrevMedia);
 document.querySelector('.lightbox-nav.right').addEventListener('click', showNextMedia);
 
-
-
-// opération ternaire 
-// ? true | : false | si on ne veut pas mettre de false remplace ? par &&
-// | -> opt +shift + L
-// Modification nom dossier img : Ellie Rose => Ellie
