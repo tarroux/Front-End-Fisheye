@@ -5,12 +5,14 @@ function photographerTemplate(data) {
 
     function getUserCardDOM() {
         const linkPagePhotographer = document.createElement('a');
-        linkPagePhotographer.setAttribute("href", `photographer.html?id=${id}`);//il faut que se soit suivant l'ID
+        linkPagePhotographer.setAttribute("href", `photographer.html?id=${id}`);
+        linkPagePhotographer.setAttribute("aria-label", "Profile de " + name);
         const article = document.createElement('article');
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('card-photographer');
         const img = document.createElement('img');
         img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
         const h2 = document.createElement('h2');
         h2.textContent = name;
         const locationDiv = document.createElement('div');

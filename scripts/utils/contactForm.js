@@ -67,7 +67,7 @@ function checkInput(input) {
     } else if (input.name === "email" && !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.value)) {
         valid = false;
         message(input, errorMessages[input.name]);
-    } else if (input.name === "message" && input.value.length < 20) {
+    } else if (input.name === "message" && input.value.length <= 0) {
         valid = false;
         message(input, errorMessages[input.name]);
     } else {
@@ -89,12 +89,53 @@ function message(input, errorMessage) {
 
 function displayModal() {
     setPhotographerName(photographerName);
-    console.log(photographerName);
     modal.style.display = "block";
+    trapFocus(modal);
+
+    const firstFocusableElement = modal.querySelectorAll('input, button, span, [tabindex]:not([tabindex="-1"])')[0];
+    firstFocusableElement.focus();
+    document.querySelector('.close-modal').addEventListener('click', closeModal);
+
+    document.querySelector('.close-modal').addEventListener('keydown', function (e) {
+        // Activer avec Enter ou Espace
+        if (e.key === 'Enter' || e.key === ' ') {
+            closeModal();
+            e.preventDefault(); // Empêche le défilement de la page pour la touche Espace
+        }
+    });
+}
+
+let lastFocusedElement;
+
+function trapFocus(element) {
+    const focusableEls = element.querySelectorAll('input, button, span, [tabindex]:not([tabindex="-1"])');
+    const firstFocusableEl = focusableEls[0];
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+    element.addEventListener('keydown', function (e) {
+        const isTabPressed = (e.key === 'Tab' || e.keyCode === 9);
+
+        if (!isTabPressed) {
+            return;
+        }
+
+        if (e.shiftKey) /* shift + tab */ {
+            if (document.activeElement === firstFocusableEl) {
+                lastFocusableEl.focus();
+                e.preventDefault();
+            }
+        } else /* tab */ {
+            if (document.activeElement === lastFocusableEl) {
+                firstFocusableEl.focus();
+                e.preventDefault();
+            }
+        }
+    });
 }
 
 function closeModal() {
     modal.style.display = "none";
+    if (lastFocusedElement) lastFocusedElement.focus();
 }
 
 function setPhotographerName(name) {

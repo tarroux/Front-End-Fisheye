@@ -69,6 +69,10 @@
     cursor: pointer;
 }
 
+button:focus {
+    background-color: #DB8876;
+}
+
 .header-button:hover {
     background-color: #DB8876;
 }
@@ -246,6 +250,7 @@ form textarea {
 .filter button p { 
     width: 60%;
 }
+
 
 .separate-line {
     width: 140px;

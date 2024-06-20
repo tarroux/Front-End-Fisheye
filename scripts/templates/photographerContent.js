@@ -55,6 +55,7 @@ function updateFilterButton(medias) {
             <p>${filterItems.find((item) => item.id === filterSelected).title}</p>
             <img src="assets/icons/flecheBas.png"/>
         `;
+
         // modification, quand dropdown est ouvert mettre la fleche et supprimer condition ternaire : <img src="assets/icons/${isOpen ? "flecheHaut" : "flecheBas"}.png"/>
         if (isOpen) {
             dropdownContent.style.display = 'block';
@@ -171,7 +172,7 @@ function updatePriceElement(price) {
 function generateCard(cardContainer, element, firstName, index) {
     //Suppression du return
     cardContainer.innerHTML += (
-        `<div class="card-elements" tabindex="0">${element.image ? (
+        `<div class="card-elements" tabindex="0" role="button" aria-label="Visionner dans la lightbox">${element.image ? (
             `<img class="media-element" src="assets/photographers/${firstName}/${element.image}" alt="${element.title}"/>`
         ) : (
             `<video class="media-element video"><source src="assets/photographers/${firstName}/${element.video}" alt="${element.title}"/></video>`
@@ -185,6 +186,18 @@ function generateCard(cardContainer, element, firstName, index) {
                 </div>
             </div> 
         `);
+    const card = document.querySelector(".card-elements");
+    // card.addEventListener('keydown', function(event) {
+    //     if (event.key === 'Enter' || event.key === ' ') {
+    //         card.click();  // Simuler un clic lorsque Enter ou Espace est pressé
+    //         event.preventDefault();
+    //     }
+    // });
+
+    // Écouteur de clic pour la logique normale de clic
+    card.addEventListener('click', function () {
+        openLightbox(element, index); // Ou autre logique de clic
+    });
     Promise.resolve().then(() => {
         document.getElementById(`favorite-${index}`).addEventListener('click', () => {
             element.likes += element.liked ? -1 : 1;
