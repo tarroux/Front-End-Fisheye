@@ -16,7 +16,7 @@ function photographerPage(photographersIdentity) {
             </div>
             <button class="contact_button header-button" onclick="displayModal()">Contactez-moi</button>
             <div class="img-photographer">
-                <img src="${picture}" class="img-el"/>
+                <img src="${picture}" class="img-el" alt="${name}"/>
             </div> 
         `);
 
@@ -171,10 +171,10 @@ function updatePriceElement(price) {
 function generateCard(cardContainer, element, firstName, index) {
     //Suppression du return
     cardContainer.innerHTML += (
-        `<div class="card-elements">${element.image ? (
-            `<img class="media-element" src="assets/photographers/${firstName}/${element.image}" alt=""/>`
+        `<div class="card-elements" tabindex="0">${element.image ? (
+            `<img class="media-element" src="assets/photographers/${firstName}/${element.image}" alt="${element.title}"/>`
         ) : (
-            `<video class="media-element video"><source src="assets/photographers/${firstName}/${element.video}" /></video>`
+            `<video class="media-element video"><source src="assets/photographers/${firstName}/${element.video}" alt="${element.title}"/></video>`
         )}
                 <div>
                     <h2>${element.title}</h2>
@@ -235,10 +235,12 @@ function openLightbox(media, index, title) {
         lightboxImg.style.display = 'block';
         lightboxVideo.style.display = 'none';
         lightboxImg.src = media.src;
+        lightboxImg.alt = title;
     } else if (media.tagName === 'VIDEO') {
         lightboxImg.style.display = 'none';
         lightboxVideo.style.display = 'block';
         lightboxVideoSource.src = media.querySelector('source').src;
+        lightboxVideo.setAttribute('aria-label', title);
         lightboxVideo.load();
     }
 

@@ -44,6 +44,7 @@ function validateForm(e) {
         if (!checkInput(input)) {
             allValid = false;
         }
+        // console.log("Validation", allValid);
     });
     if (allValid) {
         formSubmission();
@@ -110,9 +111,12 @@ function formSubmission() {
     // Récupérer l'ID du photographe depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const photographerId = urlParams.get('id');
+    // console.log(photographerId);
 
-    // Rediriger vers la même page avec l'ID du photographe
-    window.location.href = `photographer.html?id=${photographerId}`;
+    // Rediriger vers la même page avec l'ID du photographe : POSE PROBLEME 
+    // window.location.href = `photographer.html?id=${photographerId}`;
+    // Réinitialiser le formulaire
+    form.reset();
 }
 
 const formContent = {};
