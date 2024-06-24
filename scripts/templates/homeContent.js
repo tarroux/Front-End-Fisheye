@@ -32,6 +32,15 @@ function photographerTemplate(data) {
         article.appendChild(locationDiv);
         article.appendChild(taglineEl);
         article.appendChild(priceEl);
+
+        // linkPagePhotographer.addEventListener('focus', (event) => {
+        //     console.log(`Focus sur ${name}`);
+        // }, true);
+        // linkPagePhotographer.addEventListener('keypress', (event) => {
+        //     if (event.key === 'Enter') {
+        //         window.location.href = linkPagePhotographer.href;
+        //     }
+        // });
         return (linkPagePhotographer);
     }
     return { name, picture, getUserCardDOM }

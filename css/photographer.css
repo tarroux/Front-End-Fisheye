@@ -219,16 +219,6 @@ form textarea {
 }
 
 /* MENU */
-.dropdown-content {
-    width: 170px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #901C1C;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-}
 
 .filter button {
     width: 170px;
@@ -291,10 +281,22 @@ form textarea {
 .dropdown-content {
     display: none;
     position: absolute;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     left: 208px;
+    width: 170px;
+    min-width: 160px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #901C1C;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.show {
+    display: block;
 }
 
 .dropdown-item {
@@ -339,6 +341,15 @@ form textarea {
     justify-content: space-between;
     width: 100%;
     margin-top: 20px;
+}
+
+/* .card-elements:focus {
+    outline: 5px solid #dfdede;
+} */
+
+.media-element:focus {
+    outline: 8px solid #dfdede;  
+    cursor: pointer;
 }
 
 .card-elements {
@@ -507,7 +518,7 @@ form textarea {
     font-weight: 400;
 }
 
-.closeLightbox {
+.close-lightbox {
     position: absolute;
     top: 20px;
     right: 50px;
@@ -536,3 +547,14 @@ form textarea {
 .lightbox-nav.right {
     right: 0;
 }
+ .close-lightbox:focus {
+    outline: 2px solid #dfdede;
+ }
+ .left:focus {
+    background-color: #FAFAFA;
+    outline: 2px solid #dfdede;
+ }
+ .right:focus {
+    background-color: #FAFAFA;
+    outline: 2px solid #dfdede;
+ }

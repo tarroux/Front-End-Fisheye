@@ -33,7 +33,7 @@
 			</div>
 		</div>
     <div id="lightbox" class="lightbox">
-      <span class="closeLightbox">
+      <span class="close-lightbox" role="button" tabindex="0" aria-label="Fermer la lightbox">
           <img src="assets/icons/close-24px 1.png" alt="close"/>
       </span>
       <div class="lightbox-content">
@@ -47,17 +47,20 @@
           <p id="lightbox-title"></p>
         </div>
       </div>
-      <div class="lightbox-nav left">
+      <div class="lightbox-nav left" role="button" tabindex="0" aria-label="Image précédente">
           <img src="assets/icons/expand_more-24px 4.png" alt="left"/>
       </div>
-      <div class="lightbox-nav right">
+      <div class="lightbox-nav right" role="button" tabindex="0" aria-label="Image suivante">
           <img src="assets/icons/expand_more-24px 5.png" alt="right"/>
       </div>
     </div>
   
     <script src="/scripts/services/getData.js"></script>
-    <script src="/scripts/pages/photographerPage.js"></script>
+    <script src="/scripts/utils/sort.js"></script>
+    <script src="/scripts/components/dropdown.js"></script>
     <script src="/scripts/templates/photographerContent.js"></script>
+    <script src="/scripts/templates/lightbox.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/pages/photographerPage.js"></script>
   </body>
 </html>
