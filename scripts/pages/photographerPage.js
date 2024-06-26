@@ -12,7 +12,8 @@ async function displayPhotographerData(data, id) {
 }
 
 /**
- * Initializes the page by retrieving data from photographers and media, then displays those matching the ID specified in the URL.
+ * Initializes the page by retrieving data from photographers and media, 
+ * then displays those matching the ID specified in the URL.
  */
 async function initializePage() {
     const url = window.location.search;
