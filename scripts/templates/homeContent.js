@@ -1,7 +1,7 @@
 /**
- * Crée un modèle pour la carte d'un photographe et fournit une fonction pour générer son DOM.
- * @param {Object} data - Contient les informations d'un photographe (nom, portrait, ville, etc.).
- * @returns {Object} - Objet contenant le nom, l'image du photographe et une fonction pour obtenir le DOM de la carte du photographe.
+ * Creates a template for a photographer's card and provides a function to generate its DOM.
+ * @param {Object} data - Contains a photographer's information (name, portrait, city, etc.).
+ * @returns {Object} - Object containing the photographer's name, image, and a function to get the photographer's map DOM.
  */
 function photographerTemplate(data) {
     const { name, portrait, city, country, tagline, price, id } = data;
@@ -9,8 +9,8 @@ function photographerTemplate(data) {
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
     /**
-     * Construit et retourne le DOM de la carte du photographe.
-     * @returns {HTMLElement} - L'élément HTML 'a' qui contient toute la carte du photographe.
+     * Constructs and returns the photographer map DOM.
+     * @returns {HTMLElement} - The HTML element 'a' which contains the entire photographer's map.
      */
     function getUserCardDOM() {
         const linkPagePhotographer = document.createElement('a');

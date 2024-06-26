@@ -1,6 +1,6 @@
 /**
- * Affiche les données des photographes dans la section dédiée sur la page.
- * @param {Array} photographers - Liste des photographes à afficher.
+ * Shows photographer data in the dedicated section on the page.
+ * @param {Array} photographers - List of photographers to display.
  */
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
@@ -13,7 +13,7 @@ async function displayData(photographers) {
 }
 
 /**
- * Initialise la page en récupérant les données des photographes et en configurant les événements.
+ * Initializes the page by retrieving data from photographers and configuring events.
  */
 async function init() {
     const data = await getPhotographers();

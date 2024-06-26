@@ -1,7 +1,7 @@
 /**
- * Récupère et affiche les données du photographe et ses médias correspondants.
- * @param {Object} data - Objet contenant les données des photographes et des médias.
- * @param {Number} id - ID unique du photographe dont les données doivent être affichées.
+ * Retrieves and displays photographer data and their corresponding media.
+ * @param {Object} data - Object containing photographer and media data.
+ * @param {Number} id - Unique ID of the photographer whose data should be displayed.
  */
 async function displayPhotographerData(data, id) {
     const photographUser = data.photographers.find(photographer => photographer.id === id);
@@ -12,7 +12,7 @@ async function displayPhotographerData(data, id) {
 }
 
 /**
- * Initialise la page en récupérant les données des photographes et médias, puis affiche celles correspondant à l'ID spécifié dans l'URL.
+ * Initializes the page by retrieving data from photographers and media, then displays those matching the ID specified in the URL.
  */
 async function initializePage() {
     const url = window.location.search;

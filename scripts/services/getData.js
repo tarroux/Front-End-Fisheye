@@ -1,6 +1,6 @@
 /**
- * Récupère les données depuis le fichier JSON des photographes en utilisant une requête fetch.
- * @returns {Promise<Object>} - Promesse qui résout en objet contenant les données des photographes et médias.
+ * Retrieves data from the photographers JSON file using a fetch request.
+ * @returns {Promise<Object>} - Promise that resolves to an object containing data from photographers and media.
  */
 async function getData() {
     return fetch("/data/photographers.json")
@@ -10,8 +10,8 @@ async function getData() {
 }
 
 /**
- * Récupère uniquement les données des photographes.
- * @returns {Promise<Array>} - Promesse qui résout en un tableau contenant les données des photographes.
+ * Only retrieves data from photographers.
+ * @returns {Promise<Array>} - Promise that resolves into a table containing the photographers' data.
  */
 async function getPhotographers() {
     const { photographers } = await getData();
@@ -19,8 +19,8 @@ async function getPhotographers() {
 }
 
 /**
- * Récupère les données des photographes ainsi que les médias associés.
- * @returns {Promise<Object>} - Promesse qui résout en objet contenant à la fois les photographes et les médias.
+ * Retrieves photographer data and associated media.
+ * @returns {Promise<Object>} - Promise that resolves into object containing both photographers and media.
  */
 async function getMediaAndPhotographers() {
     return await getData();

@@ -1,6 +1,6 @@
 /**
- * Gère les touches fléchées pour naviguer entre les médias dans la lightbox.
- * @param {KeyboardEvent} event - L'événement du clavier capturé.
+ * Handles arrow keys to navigate between media in the lightbox.
+ * @param {KeyboardEvent} event - The keyboard event captured.
  */
 function handleArrowKeys(event) {
     if (event.key === 'ArrowRight') {
@@ -11,10 +11,10 @@ function handleArrowKeys(event) {
 }
 
 /**
- * Ouvre la lightbox pour le média sélectionné, met en place le contenu approprié et piège le focus.
- * @param {HTMLElement} media - L'élément du média sélectionné (image ou vidéo).
- * @param {number} index - L'index du média dans la collection.
- * @param {string} title - Le titre du média.
+ * Opens the lightbox for the selected media, brings in the appropriate content and traps the focus.
+ * @param {HTMLElement} media - The selected media item (image or video).
+ * @param {number} index - The index of the media in the collection.
+ * @param {string} title - The title of the media.
  */
 function openLightbox(media, index, title) {
     currentMediaIndex = index;
@@ -51,12 +51,10 @@ function openLightbox(media, index, title) {
 }
 
 /**
- * Ferme la lightbox et restaure le focus sur l'élément initiateur.
+ * Closes the lightbox and restores focus to the initiating element.
  */
 function closeLightbox() {
     document.getElementById('lightbox').style.display = 'none';
-    // remettre le focus sur la page photographer
-    // document.querySelector('').focus();
     if (currentMediaIndex != null) {
         const initiator = document.querySelector(`.card-elements[data-index="${currentMediaIndex}"]`);
         if (initiator) {
@@ -67,7 +65,7 @@ function closeLightbox() {
 }
 
 /**
- * Affiche le média suivant dans la lightbox.
+ * Displays the following media in the lightbox.
  */
 function showNextMedia() {
     currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
@@ -77,7 +75,7 @@ function showNextMedia() {
 }
 
 /**
- * Affiche le média précédent dans la lightbox.
+ * Shows the previous media in the lightbox.
  */
 function showPrevMedia() {
     currentMediaIndex = (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
@@ -106,17 +104,17 @@ document.querySelector('.close-lightbox').addEventListener('keydown', function (
 });
 
 /**
- * Récupère tous les éléments pouvant être focusables dans la lightbox.
- * @param {HTMLElement} lightboxEl - L'élément de la lightbox.
- * @returns {NodeList} - Une liste de tous les éléments focusables.
+ * Retrieves all elements that can be focusable in the lightbox.
+ * @param {HTMLElement} lightboxEl - The lightbox element.
+ * @returns {NodeList} - A list of all focusable elements.
  */
 function getFocusableElements(lightboxEl) {
     return lightboxEl.querySelectorAll('div, span, [tabindex]:not([tabindex="-1"])');
 }
 
 /**
- * Piège le focus à l'intérieur de la lightbox pour améliorer l'accessibilité.
- * @param {HTMLElement} lightbox - L'élément de la lightbox.
+ * Traps the focus inside the lightbox to improve accessibility.
+ * @param {HTMLElement} lightbox - The lightbox element.
  */
 function trapFocus(lightbox) {
     const focusableElements = getFocusableElements(lightbox);
@@ -130,14 +128,14 @@ function trapFocus(lightbox) {
             return;
         }
 
-        if (event.shiftKey) { // Si la touche Shift est enfoncée en même temps que Tab (navigation inverse)
+        if (event.shiftKey) {
             if (document.activeElement === firstFocusableElement) {
-                lastFocusableElement.focus(); // Ramener le focus à la fin
+                lastFocusableElement.focus();
                 event.preventDefault();
             }
         } else {
             if (document.activeElement === lastFocusableElement) {
-                firstFocusableElement.focus(); // Ramener le focus au début
+                firstFocusableElement.focus();
                 event.preventDefault();
             }
         }

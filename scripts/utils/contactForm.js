@@ -9,7 +9,7 @@ const errorMessages = {
     message: "Veuillez écrire votre message",
 };
 
-// Définir la modal sur display none
+
 modal.style.display = "none";
 
 form.innerHTML = `
@@ -33,9 +33,9 @@ form.innerHTML = `
 form.addEventListener("submit", event => validateForm(event));
 
 /**
- * Check all input
- * @param {*} e 
- * @returns 
+ * Form validation function that prevents submission by default, 
+ * validates each input, and submits the form if all validations pass.
+ * @param {*} e - the form submission event.
  */
 function validateForm(e) {
     e.preventDefault();
@@ -44,7 +44,6 @@ function validateForm(e) {
         if (!checkInput(input)) {
             allValid = false;
         }
-        // console.log("Validation", allValid);
     });
     if (allValid) {
         formSubmission();
@@ -52,9 +51,10 @@ function validateForm(e) {
 }
 
 /**
- * Form control input
- * @param {*} input 
- * @returns 
+ * Function to check the values ​​entered in each field of the form.
+ * Shows specific error messages if validations fail.
+ * @param {*} input - the input element to validate.
+ * @returns Boolean indicating whether the input is valid.
  */
 function checkInput(input) {
     let valid = true;
@@ -87,6 +87,10 @@ function message(input, errorMessage) {
     }
 }
 
+/**
+ * Displays a modal for the specified photographer, sets their name, and sets up focus management.
+ * @param {string} photographerName - The name of the photographer to display in the modal.
+ */
 function displayModal(photographerName) {
     setPhotographerName(photographerName);
     modal.style.display = "block";
@@ -97,16 +101,19 @@ function displayModal(photographerName) {
     document.querySelector('.close-modal').addEventListener('click', closeModal);
 
     document.querySelector('.close-modal').addEventListener('keydown', function (e) {
-        // Activer avec Enter ou Espace
         if (e.key === 'Enter' || e.key === ' ') {
             closeModal();
-            e.preventDefault(); // Empêche le défilement de la page pour la touche Espace
+            e.preventDefault();
         }
     });
 }
 
 let lastFocusedElement;
 
+/**
+ * Traps focus inside a specified element to improve modal accessibility.
+ * @param {*} element - The element to trap focus in.
+ */
 function trapFocus(element) {
     const focusableEls = element.querySelectorAll('input, button, span, [tabindex]:not([tabindex="-1"])');
     const firstFocusableEl = focusableEls[0];
@@ -133,11 +140,18 @@ function trapFocus(element) {
     });
 }
 
+/**
+ * Closes the modal and returns focus to the element that had it before opening the modal.
+ */
 function closeModal() {
     modal.style.display = "none";
     if (lastFocusedElement) lastFocusedElement.focus();
 }
 
+/**
+ * Sets the photographer's name in the modal element to personalize the user interface.
+ * @param {*} name - The name of the photographer to display.
+ */
 function setPhotographerName(name) {
     const nameElement = document.querySelector('.name-photograph');
     if (nameElement) {
@@ -145,21 +159,22 @@ function setPhotographerName(name) {
     }
 }
 
+/**
+ * Handles form submission: validates, saves data and closes the modal.
+ */
 function formSubmission() {
     getFormContent();
     console.log('Formulaire soumis avec succès !', 'Données du formulaire :', formContent);
     closeModal();
-    // Récupérer l'ID du photographe depuis l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const photographerId = urlParams.get('id');
-    // console.log(photographerId);
-
-    // Rediriger vers la même page avec l'ID du photographe : POSE PROBLEME 
-    // window.location.href = `photographer.html?id=${photographerId}`;
-    // Réinitialiser le formulaire
     form.reset();
 }
 
+/**
+ * Retrieves and stores the values ​​of all fields in the form.
+ * @returns {Object} - An object containing the values ​​of each form field.
+ */
 const formContent = {};
 function getFormContent() {
 
