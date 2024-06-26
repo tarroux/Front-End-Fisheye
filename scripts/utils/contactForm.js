@@ -87,7 +87,7 @@ function message(input, errorMessage) {
     }
 }
 
-function displayModal() {
+function displayModal(photographerName) {
     setPhotographerName(photographerName);
     modal.style.display = "block";
     trapFocus(modal);

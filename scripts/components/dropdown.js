@@ -8,7 +8,13 @@ let isOpen = false;
 let selectedDropdownSortOptions = dropdownSortOptions[0].id;
 const dropdownContent = document.getElementById('dropdown-content');
 
-
+/**
+ * Crée un menu déroulant pour trier les médias et attache les événements nécessaires.
+ * @param {Array} medias - Liste des médias du photographe.
+ * @param {Function} renderMediaCards - Fonction pour afficher les cartes de médias.
+ * @param {String} name - Nom du photographe.
+ * @returns {Object} - Objet contenant le HTML du menu déroulant et la fonction pour attacher les événements.
+ */
 function createDropdown(medias, renderMediaCards, name) {
     const dropdownHtml = (
         `<div class="filter">
@@ -21,6 +27,12 @@ function createDropdown(medias, renderMediaCards, name) {
             </div>`
     );
 
+    /**
+     * Attache des événements pour ouvrir/fermer le menu déroulant et pour trier les médias.
+     * @param {Array} medias - Médias à afficher.
+     * @param {Function} renderMediaCards - Fonction pour afficher les cartes de médias.
+     * @param {String} name - Nom du photographe.
+     */
     function attachDropdownEvents(medias, renderMediaCards, name) {
         const dropdownContent = document.getElementById('dropdown-content');
 
@@ -33,11 +45,17 @@ function createDropdown(medias, renderMediaCards, name) {
     return { dropdownHtml, attachDropdownEvents }
 }
 
+/**
+ * Bascule l'affichage du menu déroulant.
+ */
 function toggleDropdown() {
     isOpen = !isOpen;
     document.getElementById('dropdown-content').classList.toggle('show', isOpen);
 }
 
+/**
+ * Met à jour le bouton du menu déroulant pour refléter l'option sélectionnée.
+ */
 function updateDropdownButton() {
     document.getElementById('filter-btn').innerHTML = `
         <p>${dropdownSortOptions.find(item => item.id === selectedDropdownSortOptions).title}</p>
@@ -45,6 +63,12 @@ function updateDropdownButton() {
     `;
 }
 
+/**
+ * Affiche les options du menu déroulant pour trier les médias.
+ * @param {Array} medias - Médias à trier.
+ * @param {Function} renderMediaCards - Fonction pour afficher les cartes de médias.
+ * @param {String} name - Nom du photographe.
+ */
 function renderDropdownOptions(medias, renderMediaCards, name) {
     const dropdownContent = document.getElementById('dropdown-content');
 
@@ -59,20 +83,48 @@ function renderDropdownOptions(medias, renderMediaCards, name) {
     attachDropdownItemsEvents(medias, renderMediaCards, name);
 }
 
+/**
+ * Attache des événements de clic et de touche "Enter" aux éléments du menu déroulant pour gérer la sélection.
+ * @param {Array} medias - Médias à trier et afficher.
+ * @param {Function} renderMediaCards - Fonction pour afficher les cartes de médias après le tri.
+ * @param {String} name - Nom du photographe.
+ */
 function attachDropdownItemsEvents(medias, renderMediaCards, name) {
     document.querySelectorAll('.dropdown-item').forEach(item => {
+        // Écouteur pour les clics de souris
         item.addEventListener("click", (event) => {
-            const sortBy = event.target.getAttribute('data-sort');
-            selectedDropdownSortOptions = parseInt(event.target.getAttribute('data-id'));
-            const sortedMedias = sortMedias(medias, sortBy);
-            renderMediaCards(sortedMedias, name);
-            // isOpen = false;
-            updateDropdownButton();
-            toggleDropdown();
-        })
+            handleDropdownSelection(event.target, medias, renderMediaCards, name);
+        });
+
+        // Écouteur pour la touche Enter
+        item.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Empêche tout comportement par défaut
+                handleDropdownSelection(event.target, medias, renderMediaCards, name);
+            }
+        });
     });
 }
 
+/**
+ * Gère la sélection dans le menu déroulant, trie les médias et met à jour l'affichage.
+ * @param {HTMLElement} target - L'élément sélectionné du menu déroulant.
+ * @param {Array} medias - Liste des médias du photographe à trier.
+ * @param {Function} renderMediaCards - Fonction pour afficher les cartes de médias.
+ * @param {String} name - Nom du photographe.
+ */
+function handleDropdownSelection(target, medias, renderMediaCards, name) {
+    const sortBy = target.getAttribute('data-sort');
+    selectedDropdownSortOptions = parseInt(target.getAttribute('data-id'));
+    const sortedMedias = sortMedias(medias, sortBy);
+    renderMediaCards(sortedMedias, name);
+    updateDropdownButton();
+    toggleDropdown(); // Fermer le dropdown après la sélection
+}
+
+/**
+ * Ferme le menu déroulant lorsque l'utilisateur clique en dehors de celui-ci.
+ */
 function closeDropdownOnClickOutside() {
     const dropdownContent = document.getElementById('dropdown-content');
     const filterBtn = document.getElementById('filter-btn');

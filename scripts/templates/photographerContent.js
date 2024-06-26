@@ -1,8 +1,16 @@
-// Tout ce qui concerne le contenu de la page photographer
+/**
+ * Crée et insère le profil du photographe dans le DOM à partir des données fournies.
+ * @param {Object} photographersIdentity - Contient les informations du photographe telles que nom, ville, pays, etc.
+ * @returns {Object} - Un objet avec une méthode pour obtenir et afficher l'en-tête du photographe.
+ */
 function createPhotographerProfile(photographersIdentity) {
     const { name, city, country, tagline, portrait, price } = photographersIdentity;
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
+    /**
+     * Génère et retourne le contenu de l'en-tête du photographe.
+     * @returns {HTMLElement} - L'élément HTML de l'en-tête du photographe.
+     */
     function getPhotographerHeader() {
         const headerPhotograph = document.querySelector('.photograph-header');
         headerPhotograph.innerHTML = (
@@ -21,6 +29,13 @@ function createPhotographerProfile(photographersIdentity) {
     return { getPhotographerHeader }
 }
 
+/**
+ * Crée le contenu médiatique pour chaque photographe et l'insère dans le DOM.
+ * @param {Array} medias - Liste des médias à afficher.
+ * @param {String} name - Nom du photographe.
+ * @param {Number} price - Prix journalier du photographe.
+ * @returns {HTMLElement} - L'élément de section contenant les médias.
+ */
 function createMediaContent(medias, name, price) {
     const sectionElementPicture = document.querySelector('.section-element');
     if (!sectionElementPicture) { return }
@@ -43,16 +58,27 @@ function createMediaContent(medias, name, price) {
     return (sectionElementPicture);
 }
 
+/**
+ * Génère et affiche les cartes pour chaque média du photographe.
+ * @param {Array} medias - Liste des médias du photographe.
+ * @param {String} name - Nom du photographe.
+ */
 function renderMediaCards(medias, name) {
     const cardContainer = document.getElementById('card-container');
     cardContainer.innerHTML = '';
     generateCard(cardContainer, medias, name.split(' ')[0]);
 }
 
+/**
+ * Crée les éléments HTML pour les cartes des médias et les insère dans le conteneur.
+ * @param {HTMLElement} cardContainer - Conteneur des cartes médias.
+ * @param {Array} medias - Liste des médias du photographe.
+ * @param {String} firstName - Prénom du photographe.
+ */
 function generateCard(cardContainer, medias, firstName) {
 
     const cardsHTML = medias.map((media, index) => (
-        `<div class="card-elements" tabindex="0" role="button" aria-label="Visionner dans la lightbox">${media.image ? (
+        `<div class="card-elements" tabindex="0" role="button" aria-label="Visionner dans la lightbox" data-index="${index}">${media.image ? (
             `<img class="media-element" src="assets/photographers/${firstName}/${media.image}" alt="${media.title}"/>`
         ) : (
             `<video class="media-element video"><source src="assets/photographers/${firstName}/${media.video}" alt="${media.title}"/></video>`
@@ -70,8 +96,19 @@ function generateCard(cardContainer, medias, firstName) {
     cardContainer.innerHTML = cardsHTML;
 
 
-    document.querySelectorAll('.card-elements').forEach((cardElement, index) => {
-        cardElement.addEventListener('click', () => openLightbox(medias[index], index));
+    document.querySelectorAll('.card-elements').forEach((cardElement) => {
+        const index = cardElement.getAttribute('data-index');
+        const media = medias[index];
+        const mediaElement = cardElement.querySelector('.media-element');
+
+        cardElement.addEventListener('click', () => openLightbox(mediaElement, index, media.title));
+
+        cardElement.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                // event.preventDefault();
+                openLightbox(mediaElement, index, media.title);
+            }
+        });
 
         const favoriteIcon = cardElement.querySelector('.favorite-icon');
         favoriteIcon.addEventListener('click', (event) => {
@@ -92,6 +129,9 @@ function generateCard(cardContainer, medias, firstName) {
     mediaElements = document.querySelectorAll('.media-element');
 }
 
+/**
+ * Calcule et met à jour le total des "j'aime" pour tous les médias affichés sur la page.
+ */
 function updateTotalLikes() {
     const allMediaLikes = document.querySelectorAll('.like-all-element > p');
     const totalLikes = Array.from(allMediaLikes).reduce((total, likeElement) => {

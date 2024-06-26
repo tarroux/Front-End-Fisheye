@@ -1,3 +1,7 @@
+/**
+ * Gère les touches fléchées pour naviguer entre les médias dans la lightbox.
+ * @param {KeyboardEvent} event - L'événement du clavier capturé.
+ */
 function handleArrowKeys(event) {
     if (event.key === 'ArrowRight') {
         showNextMedia();
@@ -6,6 +10,12 @@ function handleArrowKeys(event) {
     }
 }
 
+/**
+ * Ouvre la lightbox pour le média sélectionné, met en place le contenu approprié et piège le focus.
+ * @param {HTMLElement} media - L'élément du média sélectionné (image ou vidéo).
+ * @param {number} index - L'index du média dans la collection.
+ * @param {string} title - Le titre du média.
+ */
 function openLightbox(media, index, title) {
     currentMediaIndex = index;
     const lightbox = document.getElementById('lightbox');
@@ -40,6 +50,9 @@ function openLightbox(media, index, title) {
     lightbox.addEventListener('keydown', handleArrowKeys);
 }
 
+/**
+ * Ferme la lightbox et restaure le focus sur l'élément initiateur.
+ */
 function closeLightbox() {
     document.getElementById('lightbox').style.display = 'none';
     // remettre le focus sur la page photographer
@@ -53,6 +66,9 @@ function closeLightbox() {
     lightbox.removeEventListener('keydown', handleArrowKeys);
 }
 
+/**
+ * Affiche le média suivant dans la lightbox.
+ */
 function showNextMedia() {
     currentMediaIndex = (currentMediaIndex + 1) % mediaElements.length;
     const nextElement = mediaElements[currentMediaIndex];
@@ -60,6 +76,9 @@ function showNextMedia() {
     openLightbox(nextElement, currentMediaIndex, nextTitle);
 }
 
+/**
+ * Affiche le média précédent dans la lightbox.
+ */
 function showPrevMedia() {
     currentMediaIndex = (currentMediaIndex - 1 + mediaElements.length) % mediaElements.length;
     const prevElement = mediaElements[currentMediaIndex];
@@ -86,10 +105,19 @@ document.querySelector('.close-lightbox').addEventListener('keydown', function (
     }
 });
 
+/**
+ * Récupère tous les éléments pouvant être focusables dans la lightbox.
+ * @param {HTMLElement} lightboxEl - L'élément de la lightbox.
+ * @returns {NodeList} - Une liste de tous les éléments focusables.
+ */
 function getFocusableElements(lightboxEl) {
     return lightboxEl.querySelectorAll('div, span, [tabindex]:not([tabindex="-1"])');
 }
 
+/**
+ * Piège le focus à l'intérieur de la lightbox pour améliorer l'accessibilité.
+ * @param {HTMLElement} lightbox - L'élément de la lightbox.
+ */
 function trapFocus(lightbox) {
     const focusableElements = getFocusableElements(lightbox);
     const firstFocusableElement = focusableElements[0];

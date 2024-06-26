@@ -1,8 +1,17 @@
+/**
+ * Crée un modèle pour la carte d'un photographe et fournit une fonction pour générer son DOM.
+ * @param {Object} data - Contient les informations d'un photographe (nom, portrait, ville, etc.).
+ * @returns {Object} - Objet contenant le nom, l'image du photographe et une fonction pour obtenir le DOM de la carte du photographe.
+ */
 function photographerTemplate(data) {
     const { name, portrait, city, country, tagline, price, id } = data;
 
     const picture = `assets/photographers/PhotographersIDPhotos/${portrait}`;
 
+    /**
+     * Construit et retourne le DOM de la carte du photographe.
+     * @returns {HTMLElement} - L'élément HTML 'a' qui contient toute la carte du photographe.
+     */
     function getUserCardDOM() {
         const linkPagePhotographer = document.createElement('a');
         linkPagePhotographer.setAttribute("href", `photographer.html?id=${id}`);
@@ -33,14 +42,6 @@ function photographerTemplate(data) {
         article.appendChild(taglineEl);
         article.appendChild(priceEl);
 
-        // linkPagePhotographer.addEventListener('focus', (event) => {
-        //     console.log(`Focus sur ${name}`);
-        // }, true);
-        // linkPagePhotographer.addEventListener('keypress', (event) => {
-        //     if (event.key === 'Enter') {
-        //         window.location.href = linkPagePhotographer.href;
-        //     }
-        // });
         return (linkPagePhotographer);
     }
     return { name, picture, getUserCardDOM }
